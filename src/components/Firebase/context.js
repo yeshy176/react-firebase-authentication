@@ -4,10 +4,10 @@ import Firebase from "./firebase";
 const FirebaseContext = createContext(null);
 
 const FirebaseProvider = ({ children }) => {
-  const firebaseInstance = new Firebase();
+  const firebase = new Firebase();
 
   return (
-    <FirebaseContext.Provider value={firebaseInstance}>
+    <FirebaseContext.Provider value={firebase}>
       {children}
     </FirebaseContext.Provider>
   );
