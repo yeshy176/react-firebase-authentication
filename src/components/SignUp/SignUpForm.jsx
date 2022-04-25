@@ -12,7 +12,7 @@ export default function SignUpForm() {
     error: null,
   };
   const [state, setState] = useState(initialState);
-  const firebase = useContext(FirebaseContext);
+  const {firebase} = useContext(FirebaseContext);
   const navigate = useNavigate();
 
   const handleFormSubmit = (event) => {

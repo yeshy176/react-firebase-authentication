@@ -7,6 +7,7 @@ import {
   sendPasswordResetEmail,
   updatePassword,
   signOut,
+  onAuthStateChanged,
 } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -38,11 +39,13 @@ class Firebase {
     return signInWithEmailAndPassword(this.auth, email, password);
   };
 
-  doSignOut = () => signOut();
+  doSignOut = () => signOut(this.auth);
 
   doPasswordReset = email => sendPasswordResetEmail(this.auth, email);
 
   doPasswordUpdate = password => updatePassword(this.auth, password);
+
+  doOnAuthStateChanged = callback => onAuthStateChanged(this.auth, callback);
 }
 
 export default Firebase;

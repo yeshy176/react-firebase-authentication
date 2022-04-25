@@ -10,6 +10,7 @@ import AdminPage from '../Admin';
 import * as ROUTES from '../../constants/routes';
 
 export default function App() {
+
   return (
     <BrowserRouter>
       <h1>Test</h1>

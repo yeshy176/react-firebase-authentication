@@ -1,5 +1,5 @@
-export default function Session() {
-  return (
-    <div>Session</div>
-  )
-}
+import {AuthUserContext} from "./context";
+
+
+
+export {AuthUserContext};

@@ -1,15 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './components/App/index';
-import reportWebVitals from './reportWebVitals';
-import { FirebaseProvider } from './components/Firebase/context';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./components/App/index";
+import reportWebVitals from "./reportWebVitals";
+import { FirebaseProvider } from "./components/Firebase/context";
+import { AuthUserProvider } from "./components/Session/context";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <FirebaseProvider>
-    <App />
+      <AuthUserProvider>
+        <App />
+      </AuthUserProvider>
     </FirebaseProvider>
   </React.StrictMode>
 );
