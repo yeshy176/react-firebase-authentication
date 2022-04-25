@@ -11,21 +11,23 @@ export default function SignUpForm() {
     passwordTwo: "",
     error: null,
   };
-  const [state, setState] = useState(initialState);
-  const {firebase} = useContext(FirebaseContext);
+  const [state, setState] = useState({...initialState});
+  const { firebase } = useContext(FirebaseContext);
   const navigate = useNavigate();
 
-  const handleFormSubmit = (event) => {
+  const handleSignUp = (event) => {
     event.preventDefault();
-    firebase
-      .doCreateUserWithEmailAndPassword(state.email, state.passwordOne)
-      .then((authUser) => {
-        setState(initialState);
-        navigate(ROUTES.HOME);
-      })
-      .catch((error) => {
-        setState({ ...state, error });
-      });
+    if (firebase) {
+      firebase
+        .doCreateUserWithEmailAndPassword(state.email, state.passwordOne)
+        .then((authUser) => {
+          setState({...initialState});
+          navigate(ROUTES.HOME);
+        })
+        .catch((error) => {
+          setState({ ...state, error: error.message });
+        });
+    }
   };
 
   const handleInputChange = (event) => {
@@ -42,7 +44,7 @@ export default function SignUpForm() {
     state.username === "";
 
   return (
-    <form onSubmit={handleFormSubmit}>
+    <form onSubmit={handleSignUp}>
       <input
         type="text"
         name="username"
@@ -78,4 +80,3 @@ export default function SignUpForm() {
     </form>
   );
 }
-

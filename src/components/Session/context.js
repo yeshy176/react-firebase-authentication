@@ -1,24 +1,25 @@
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { FirebaseContext } from "../Firebase/context";
 
 const AuthUserContext = createContext(null);
 
 function AuthUserProvider({ children }) {
-  const [authUser, setAuthUser] = useState(null);
-  const {firebase} = useContext(FirebaseContext);
+  const [currentUser, setCurrentUser] = useState(null);
+  const { firebase } = useContext(FirebaseContext);
 
   useEffect(() => {
-    const listener = firebase.doOnAuthStateChanged(authUser => {
-      authUser
-         ? setAuthUser(authUser)
-         : setAuthUser(null)
+    const unlisten = firebase.doOnAuthStateChanged((authUser) => {
+      authUser ? setCurrentUser(authUser) : setCurrentUser(null);
     });
- 
-     return () => listener();
-   })
+    
+    return () => unlisten();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
-  <AuthUserContext.Provider value={{authUser}}>{children}</AuthUserContext.Provider>
+    <AuthUserContext.Provider value={{ currentUser }}>
+      {children}
+    </AuthUserContext.Provider>
   );
 }
 
