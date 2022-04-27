@@ -39,14 +39,15 @@ function SignInForm() {
     if (firebase) {
       firebase
         .doSignInWithEmailAndPassword(state.email, state.password)
-        .then(() => {
+        .then((authUser) => {
           setState({ initialState });
+          localStorage.setItem("user", JSON.stringify(authUser));
           navigate(ROUTES.HOME);
         })
         .catch((error) => {
           setState({
             ...state,
-            error: error.message,
+            error: error,
           });
         });
     }
@@ -62,6 +63,7 @@ function SignInForm() {
         value={state.email}
         onChange={handleInputChange}
         placeholder="Email Address"
+        autoComplete="username"
       />
       <input
         type="password"
@@ -69,6 +71,7 @@ function SignInForm() {
         onChange={handleInputChange}
         value={state.password}
         placeholder="Password"
+        autoComplete="current-password"
       />
       <button disabled={isInvalid} type="submit">
         Sign In

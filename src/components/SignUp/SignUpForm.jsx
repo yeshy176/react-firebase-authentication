@@ -51,6 +51,7 @@ export default function SignUpForm() {
         value={state.username}
         onChange={handleInputChange}
         placeholder="Full Name"
+        autoComplete="username"
       />
       <input
         type="text"
@@ -58,6 +59,7 @@ export default function SignUpForm() {
         value={state.email}
         onChange={handleInputChange}
         placeholder="Email"
+        autoComplete="email"
       />
       <input
         type="password"
@@ -65,6 +67,7 @@ export default function SignUpForm() {
         value={state.passwordOne}
         onChange={handleInputChange}
         placeholder="Password"
+        autoComplete="new-password"
       />
       <input
         type="password"
@@ -72,6 +75,7 @@ export default function SignUpForm() {
         value={state.passwordTwo}
         onChange={handleInputChange}
         placeholder="Confirm Password"
+        autoComplete="new-password"
       />
       <button type="submit" disabled={isInvalid}>
         Sign Up

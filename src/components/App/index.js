@@ -8,6 +8,10 @@ import HomePage from '../Home';
 import AccountPage from '../Account';
 import AdminPage from '../Admin';
 import * as ROUTES from '../../constants/routes';
+import RequireAuth from "../RequireAuth";
+import DisplayHome from "../DisplayHome";
+import NotFound from "../NotFound";
+
 
 export default function App() {
 
@@ -16,13 +20,14 @@ export default function App() {
       <Navigation />
       <hr />
       <Routes>
-        <Route path={ROUTES.LANDING} element={<LandingPage />} />
-        <Route path={ROUTES.SIGN_UP} element={<SignUpPage />} />
-        <Route path={ROUTES.SIGN_IN} element={<SignInPage />} />
+        <Route path={ROUTES.LANDING} element={<DisplayHome><LandingPage /></DisplayHome>} />
+        <Route path={ROUTES.SIGN_UP} element={<DisplayHome><SignUpPage /></DisplayHome>} />
+        <Route path={ROUTES.SIGN_IN} element={<DisplayHome><SignInPage /></DisplayHome>} />
         <Route path={ROUTES.PASSWORD_FORGET} element={<PasswordForgotPage />} />
-        <Route path={ROUTES.HOME} element={<HomePage />} />
-        <Route path={ROUTES.ACCOUNT} element={<AccountPage />} />
-        <Route path={ROUTES.ADMIN} element={<AdminPage />} />
+        <Route path={ROUTES.HOME} element={<RequireAuth><HomePage /></RequireAuth>} />
+        <Route path={ROUTES.ACCOUNT} element={<RequireAuth><AccountPage /></RequireAuth>} />
+        <Route path={ROUTES.ADMIN} element={<RequireAuth><AdminPage /></RequireAuth>} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   )

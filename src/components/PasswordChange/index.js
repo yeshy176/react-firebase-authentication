@@ -31,12 +31,14 @@ export default function PasswordChangeForm() {
 
   return (
     <form onSubmit={handlePasswordChange}>
+      <input hidden type='text' name='email' autoComplete='email' />
       <input
         name="passwordOne"
         value={state.passwordOne}
         onChange={handleInputChange}
         type="password"
         placeholder="New Password"
+        autoComplete="new-password"
       />
       <input
         name="passwordTwo"
@@ -44,6 +46,7 @@ export default function PasswordChangeForm() {
         onChange={handleInputChange}
         type="password"
         placeholder="New Password"
+        autoComplete="new-password"
       />
       <button disabled={isInvalid}>Change Password</button>
       {state.error && <p>{state.error.message}</p>}
