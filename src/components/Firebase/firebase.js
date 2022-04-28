@@ -9,6 +9,7 @@ import {
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
+import {getFirestore, enablePersistence} from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -25,8 +26,8 @@ const firebaseConfig = {
 // Initialize Firebase
 class Firebase {
   constructor() {
-    initializeApp(firebaseConfig);
-
+    this.app = initializeApp(firebaseConfig);
+    this.db = getFirestore(this.app);
     this.auth = getAuth();
   }
 

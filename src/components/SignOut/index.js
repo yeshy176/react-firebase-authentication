@@ -2,13 +2,16 @@ import { useContext } from "react"
 import { FirebaseContext } from "../Firebase/context"
 import { useNavigate } from "react-router-dom"
 import * as ROUTES from "../../constants/routes"
+import { AuthUserContext } from "../Session"
 
 export default function SignOutButton() {
-  const navigate = useNavigate()
+  const {dispatch} = useContext(AuthUserContext);
   const {firebase} = useContext(FirebaseContext)
+  const navigate = useNavigate()
+
   const handleSignOut = () => {
     firebase.doSignOut()
-    localStorage.removeItem("user")
+    dispatch({type: "logout"})
     navigate(ROUTES.LANDING)
   }
 

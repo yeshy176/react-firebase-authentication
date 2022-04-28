@@ -5,10 +5,10 @@ import { useContext } from "react";
 import { AuthUserContext } from "../Session";
 
 export default function Navigation() {
-  const {currentUser} = useContext(AuthUserContext);
+  const {state} = useContext(AuthUserContext);
 
   return (<div>
-    {currentUser ? <NavigationAuth /> : <NavigationNonAuth />}
+    {state.currentUser ? <NavigationAuth /> : <NavigationNonAuth />}
   </div>
   );
 }

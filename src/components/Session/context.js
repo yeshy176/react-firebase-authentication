@@ -1,25 +1,21 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { FirebaseContext } from "../Firebase/context";
+import { createContext, useEffect, useReducer } from "react";
+import AuthReducer from "./AuthReducer";
 
 const AuthUserContext = createContext(null);
 
+const initialState = {
+  currentUser: JSON.parse(localStorage.getItem("user")) || null
+}
+
 function AuthUserProvider({ children }) {
-  const [currentUser, setCurrentUser] = useState(
-    JSON.parse(localStorage.getItem("user"))
-  );
-  const { firebase } = useContext(FirebaseContext);
+  const [state, dispatch] = useReducer(AuthReducer, initialState);
 
   useEffect(() => {
-    const unlisten = firebase.doOnAuthStateChanged((authUser) => {
-      authUser ? setCurrentUser(authUser) : setCurrentUser(null);
-    });
-
-    return () => unlisten();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    localStorage.setItem("user", JSON.stringify(state.currentUser));
+  }, [state.currentUser]);
 
   return (
-    <AuthUserContext.Provider value={{ currentUser, setCurrentUser }}>
+    <AuthUserContext.Provider value={{state, dispatch }}>
       {children}
     </AuthUserContext.Provider>
   );

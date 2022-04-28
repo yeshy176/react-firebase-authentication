@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { AuthUserContext } from "./Session";
 
 export default function RequireAuth({ children }) {
-  const {currentUser} = useContext(AuthUserContext);
+  const {state} = useContext(AuthUserContext);
 
-  return currentUser ? children : <Navigate to={ROUTES.SIGN_IN} />;
+  return state.currentUser ? children : <Navigate to={ROUTES.SIGN_IN} />;
 }

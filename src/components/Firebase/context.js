@@ -5,6 +5,7 @@ const FirebaseContext = createContext(null);
 
 const FirebaseProvider = ({ children }) => {
   const firebase = new Firebase();
+  console.log(firebase);
 
   return (
     <FirebaseContext.Provider value={{firebase}}>

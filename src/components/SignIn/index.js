@@ -4,6 +4,7 @@ import { useState, useContext } from "react";
 import { FirebaseContext } from "../Firebase/context";
 import { useNavigate } from "react-router-dom";
 import PasswordForgotLink from "../PasswordForgot/PasswordForgotLink";
+import { AuthUserContext } from "../Session";
 
 export default function SignInPage() {
   return (
@@ -24,6 +25,7 @@ function SignInForm() {
   };
   const [state, setState] = useState({...initialState});
 
+  const {dispatch} = useContext(AuthUserContext);
   const { firebase } = useContext(FirebaseContext);
   const navigate = useNavigate();
 
@@ -41,7 +43,7 @@ function SignInForm() {
         .doSignInWithEmailAndPassword(state.email, state.password)
         .then((authUser) => {
           setState({ initialState });
-          localStorage.setItem("user", JSON.stringify(authUser));
+          dispatch({ type: "login", payload: authUser });
           navigate(ROUTES.HOME);
         })
         .catch((error) => {
